@@ -25,18 +25,23 @@
     <!-- 历史记录 -->
     <van-cell-group v-else>
       <van-cell title="历史记录">
-        <span style="margin-right: 10px;">全部删除</span>
-        <span>完成</span>
+        <div v-show="isDeleteShow">
+          <span style="margin-right: 10px;" @click="searchHistories = []">全部删除</span>
+          <span @click="isDeleteShow = false">完成</span>
+        </div>
         <van-icon slot="right-icon"
                   name="delete"
-                  style="line-height: inherit;" />
+                  style="line-height: inherit;"
+                  v-show="!isDeleteShow"
+                  @click="isDeleteShow = true" />
       </van-cell>
       <van-cell :title="item"
-                v-for="item in searchHistories"
+                v-for="(item,index) in searchHistories"
                 :key="item">
         <van-icon slot="right-icon"
                   name="close"
-                  style="line-height: inherit;" />
+                  style="line-height: inherit;"
+                  v-show="isDeleteShow" @click="searchHistories.splice(index,1)"/>
       </van-cell>
     </van-cell-group>
     <!-- /历史记录 -->
@@ -52,7 +57,8 @@ export default {
     return {
       searchText: '',
       suggestions: [],
-      searchHistories: JSON.parse(window.localStorage.getItem('search-histories')) || []
+      searchHistories: JSON.parse(window.localStorage.getItem('search-histories')) || [],
+      isDeleteShow: false
     }
   },
   watch: {

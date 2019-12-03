@@ -5,6 +5,7 @@ import Home from '@/views/Home'
 import Tabbar from '@/views/Tabbar'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search-result'
+import Article from '@/views/Article'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,11 @@ const routes = [{
     path: '/search/:q',
     name: 'search-result',
     component: SearchResult
+  },
+  {
+    path: '/article/:id',
+    name: 'article',
+    component: Article
   }
 ]
 

@@ -37,3 +37,44 @@ export const reportArticle = ({
     }
   })
 }
+// 获取新闻文章详情
+export const getArticle = (articleId) => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/articles/${articleId}`,
+  })
+}
+// 对文章点赞
+export const likeArticle = (articleId) => {
+  return request({
+    method: 'POST',
+    url: ' /app/v1_0/article/likings',
+    data: {
+      target: articleId
+    }
+  })
+}
+// 对文章不喜欢
+export const DisArticle = (articleId) => {
+  return request({
+    method: 'POST',
+    url: '/app/v1_0/article/dislikes',
+    data:{
+      target: articleId
+    }
+  })
+}
+// 取消对文章点赞
+export const unLikeArticle = (articleId) => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/article/likings/${articleId}`
+  })
+}
+// 取消对文章不喜欢
+export const unDisArticle = (articleId) => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/article/dislikes/${articleId}`
+  })
+}

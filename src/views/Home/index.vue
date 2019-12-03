@@ -30,7 +30,8 @@
                     @load="onLoad">
             <van-cell v-for="article in channel.articles"
                       :key="article.art_id.toString()"
-                      :title="article.title">
+                      :title="article.title"
+                      @click="$router.push({name:'article',params:{id:article.art_id.toString()}})">
               <div slot="label">
                 <van-grid :border="false"
                           :column-num="3">

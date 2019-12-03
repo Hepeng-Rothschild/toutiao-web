@@ -71,7 +71,7 @@ export default {
       this.suggestions = data.data.options
     }, 500),
     searchHistories () {
-      window.localStorage.setItem('search-histories', JSON.stringify(this.searchHistories))
+      this.saveSearchHistories()
     }
   },
   methods: {
@@ -86,6 +86,8 @@ export default {
       }
       // 向搜索历史记录数组的0号索引添加最近的历史记录
       this.searchHistories.unshift(q)
+      // ：由于跳转路由会销毁当前组件，watch之类的不会再被触发，所以在这里手动的存储历史记录
+      this.saveSearchHistories()
       // 控制搜索跳转
       this.$router.push({
         name: 'search-result',
@@ -94,10 +96,16 @@ export default {
         }
       })
     },
-    onCancel () { },
+    onCancel () { 
+      this.$router.back()
+    },
     highlight (str) {
       const keyword = this.searchText
       return str.toLowerCase().split(keyword).join(`<span style="color:red;">${keyword}</span>`)
+    }, 
+    saveSearchHistories () {
+      window.localStorage.setItem('search-histories', JSON.stringify(this.searchHistories))
+
     }
   }
 }

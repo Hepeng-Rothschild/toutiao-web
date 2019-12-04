@@ -67,7 +67,8 @@ export default {
         // 登录成功，关闭loading
         this.isLoginLoading = false
         // 验证成功跳转主界面
-        this.$router.push({ name: 'home' })
+        const {redirect} = this.$route.query
+        this.$router.push(redirect || '/')
       } catch (err) {
         if (err.response && err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')

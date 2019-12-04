@@ -47,23 +47,31 @@ request.interceptors.response.use(function (response) {
   // Do something with response error
   if (error.response && error.response.status === 401) {
     // 是否有refresh_token,如果没有直接跳转到登录页
-    if (!user.refresh_token) {
+    if (!user || !user.refresh_token) {
+      // 在js模块中获取当前路由对象
+      // 如果是a页面 ，那么currentRoute 就是a页面的$route
+      // 如果是n页面，那么currentRoute 就是n页面$route 
       router.push({
-        name: 'login'
+        name: 'login',
+        query:{
+          redirect: router.currentRoute.fullPath
+        }
       })
     } else {
       // 如果有，请求获取新的token，存储到容器中
-      const {data} = await refreshTokenReq({
+      const {
+        data
+      } = await refreshTokenReq({
         method: 'PUT',
-        url: '/app/v1_0/authorizations',  
-        headers:{
-          Authorization:`Bearer${user.refresh_token}`
+        url: '/app/v1_0/authorizations',
+        headers: {
+          Authorization: `Bearer${user.refresh_token}`
         }
       })
       // 将请求到的新的token更新到容器中
       store.commit('setUser', {
-        token:data.data.token,
-        refresh_token:user.refresh_token
+        token: data.data.token,
+        refresh_token: user.refresh_token
       })
       // 把原来的请求继续发出去 
       return request(error.config)

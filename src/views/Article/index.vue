@@ -54,14 +54,20 @@
       <p>网络超时，点击 <a href="#"
            @click.prevent="loadArticle">刷新</a> 试一试。</p>
     </div>
+    <!-- 评论组件 -->
+    <article-comment />
   </div>
 </template>
 
 <script>
 import { getArticle, likeArticle, DisArticle, unLikeArticle, unDisArticle } from '@/api/article'
 import { followUser, unFollowUser } from '@/api/user'
+import ArticleComment from './Components/component'
 export default {
   name: 'ArticleIndex',
+  components:{
+    ArticleComment
+  },
   data () {
     return {
       loading: true,

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 import JSONBig from 'json-bigint'
-import router from 'router.js'
+import router from '@/router'
 const request = axios.create({
   baseURL: 'http://ttapi.research.itcast.cn'
 })

@@ -12,7 +12,7 @@ import zhCN from 'vee-validate/dist/locale/zh_CN' // 加载验证插件的语言
 import {
   relativeTime
 } from './utils/dayjs'
-
+import 'amfe-flexible/index.js'
 Vue.filter('relativeTime', relativeTime)
 Validator.localize('zh_CN', zhCN)
 Vue.use(Vant)
